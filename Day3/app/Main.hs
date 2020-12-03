@@ -46,6 +46,4 @@ main = do
   topologicalMap <- readMap "input.txt"
   print $ solve topologicalMap 3 1
   let slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
-
-  traverse_ (print . uncurry (solve topologicalMap)) slopes
   print $ product $ map (uncurry (solve topologicalMap)) slopes
