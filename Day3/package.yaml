@@ -35,7 +35,6 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - Day3
-    - parsec
 
 tests:
   Day3-test:
