@@ -24,4 +24,3 @@ main = do
   seats <- map toSeat . lines <$> readFile "input.txt"
   print $ maximum seats
   print $ missingSeat (sort seats)
-
