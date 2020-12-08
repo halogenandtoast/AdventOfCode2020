@@ -2,6 +2,7 @@
 {-# LANGUAGE RecordWildCards    #-}
 module Main where
 
+import           Data.Functor
 import           Text.Parsec
 import           Text.Parsec.String
 
@@ -20,15 +21,15 @@ data Program = Program
 instr :: Parser Instr
 instr = (nop <|> acc <|> jmp) <*> (spaces >> signedNumber)
  where
-  nop = string "nop" >> pure Nop
-  acc = string "acc" >> pure Acc
-  jmp = string "jmp" >> pure Jmp
+  nop = string "nop" $> Nop
+  acc = string "acc" $> Acc
+  jmp = string "jmp" $> Jmp
 
 signedNumber :: Parser Int
 signedNumber = (plus <|> minus) <*> number
  where
-  plus   = char '+' >> pure id
-  minus  = char '-' >> pure negate
+  plus   = char '+' $> id
+  minus  = char '-' $> negate
   number = read <$> many1 digit
 
 program :: Parser Program
