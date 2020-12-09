@@ -22,7 +22,6 @@ solve2 target (x : xs) = go [x] xs
     | otherwise
     = let (y' : ys') = ys in go (cont <> [y']) ys'
 
-
 main :: IO ()
 main = do
   ints <- map (read @Int) . lines <$> readFile "input.txt"
