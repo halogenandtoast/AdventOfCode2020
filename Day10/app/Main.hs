@@ -6,11 +6,8 @@ import           Data.List
 import           Data.Map  (Map)
 import qualified Data.Map  as Map
 
-data Log = Log Int Int Int
-  deriving stock Show
-
 solve :: [Int] -> Int
-solve = go 0 0
+solve = go 0 0 . (0 :)
  where
   go a b []             = a * b
   go a b [_]            = a * b
@@ -27,7 +24,7 @@ solve2 m (x : xs) = let y = solve2 m [x] in solve2 (Map.insert x y m) xs
 main :: IO ()
 main = do
   adapters <- map (read @Int) . lines <$> readFile "input.txt"
-  let maxAdapter     = maximum adapters
-      builtInAdapter = maxAdapter + 3
-  print $ solve ((0 : sort adapters) <> [builtInAdapter])
-  print $ solve2 (Map.singleton 0 1) (sort adapters <> [builtInAdapter])
+  let builtInAdapter = maximum adapters + 3
+      allAdapters    = sort adapters <> [builtInAdapter]
+  print $ solve allAdapters
+  print $ solve2 (Map.singleton 0 1) allAdapters
