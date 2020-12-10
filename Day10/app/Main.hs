@@ -20,11 +20,9 @@ solve = go 0 0
   go _ _ _              = error "messed up"
 
 solve2 :: Map Int Int -> [Int] -> Int
-solve2 _ []  = 0
-solve2 m [x] = sum [ Map.findWithDefault 0 (x - n) m | n <- [1 .. 3] ]
-solve2 m (x : xs) =
-  let y = sum [ Map.findWithDefault 0 (x - n) m | n <- [1 .. 3] ]
-  in  solve2 (Map.insert x y m) xs
+solve2 _ []       = 0
+solve2 m [x     ] = sum [ Map.findWithDefault 0 (x - n) m | n <- [1 .. 3] ]
+solve2 m (x : xs) = let y = solve2 m [x] in solve2 (Map.insert x y m) xs
 
 main :: IO ()
 main = do
